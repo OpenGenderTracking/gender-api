@@ -2,9 +2,12 @@
 
 require 'sinatra'
 require 'json'
-#require 'gender.rb'
+require './lib/gender.rb'
 
 set :data_path, 'data/'
+
+
+gender = Gender.new({:country => 'us'})
 
 get '/' do
   erb :index
@@ -13,8 +16,8 @@ end
 # /gender?name GET or POST a full name -- return a gender probability
 get '/gender' do 
   content_type :json
-  #{ :name => Gender.guess(params[:name]) , :gender => 'BLAH' }.to_json
-  { :name => params[:name] , :gender => 'BLAH' }.to_json
+  { :name => params[:name], :gender => gender.guess(params[:name]) }.to_json
+  #{ :name => params[:name] , :gender => 'BLAH' }.to_json
 end
 
 # GET or POST fulltext -- return pronoun gender
