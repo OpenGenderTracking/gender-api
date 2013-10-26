@@ -1,5 +1,3 @@
-#!/usr/bin/env ruby -I ../lib -I lib
-
 require 'sinatra'
 require 'json'
 require './lib/gender.rb'
