@@ -1,14 +1,13 @@
 module Metrics
-  class Pronouns < Metrics::Default
+  class Pronouns
 
     def initialize(config)
-      super(config)
+      @config = config
       @pronouns = {
         :male => read_type("male"),
         :female => read_type("female"),
         :neutral => read_type("neutral")
       }
-      @decompositions = [ Decomposer::Tokens ]
     end
 
   
@@ -17,12 +16,10 @@ module Metrics
     end
   
 
-    def process(article)
-      super(article)
-
+    def process(tokens)
       # count how many tokens fall within the pronoun dictionary
       counts = { :male => 0, :female => 0, :neutral => 0 }
-      article.get_decomposition("tokens").each do |token|
+      tokens.each do |token|
         m = @pronouns[:male].index(token)
         if (!m.nil?)
           counts[:male] += 1
@@ -55,10 +52,6 @@ module Metrics
         end
       end
 
-      article.add_metric "pronouns" do
-        score
-      end
-
       score
     end
 
@@ -69,7 +62,7 @@ module Metrics
         File.expand_path(
           File.join(
             File.dirname(__FILE__), 
-            "../../lib/metrics/pronouns/#{type}-#{@config.lang}.csv"
+            "../lib/metrics/pronouns/#{type}-#{@config.lang}.csv"
           )
         ), "r"
       ).read.split("\n")
