@@ -7,6 +7,7 @@ require 'confstruct'
 require 'tokenizer'
 require './lib/gender.rb'
 require './lib/pronouns.rb'
+require './lib/entities.rb'
 
 config = Confstruct::Configuration.new(
   YAML.load_file(
@@ -42,6 +43,11 @@ post '/content' do
 end
 
 # GET OR POST fulltext -- return list of tokens and their likely gender
+post '/content' do
+  content_type :json
+  e = Metrics::Entities.new
+  e.gender(params[:text]).to_json
+end
 
 
 __END__
