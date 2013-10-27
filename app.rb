@@ -41,7 +41,7 @@ post '/content' do
 end
 
 # GET OR POST fulltext -- return list of tokens and their likely gender
-post '/content' do
+post '/people' do
   content_type :json
   e = Metrics::Entities.new
   e.gender(params[:text]).to_json
