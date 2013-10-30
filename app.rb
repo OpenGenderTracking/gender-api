@@ -28,7 +28,6 @@ end
 get '/gender' do 
   content_type :json
   { :name => params[:name], :gender => gender.guess(params[:name]) }.to_json
-  #{ :name => params[:name] , :gender => 'BLAH' }.to_json
 end
 
 # POST text=fulltext -- return pronoun gender
@@ -47,10 +46,8 @@ post '/people' do
   e.gender(params[:text]).to_json
 end
 
-
 __END__
 
 @@index
-" /gender?name to get the gender for the name."
-
-
+" /gender?name to get the gender for the name.
+"

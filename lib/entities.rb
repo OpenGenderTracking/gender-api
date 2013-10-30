@@ -10,7 +10,7 @@ module Metrics
 
     def get_entity_tokens(text)
       result = ""
-      IO.popen("./ner/nerstdin.sh", "w+") do |io|
+      IO.popen("./lib/ner/nerstdin.sh", "w+") do |io|
         io.write text
         io.close_write
         result = io.read
